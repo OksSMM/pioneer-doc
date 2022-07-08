@@ -32,6 +32,10 @@ release = 'September update 2021'
 
 rst_epilog = """
 
+.. |utd_ap_mini| replace:: 1.6.9202
+.. |utd_ap_base| replace:: 1.6.7178
+.. |utd_ap_max| replace:: 1.6.7287
+
 .. |fw_ap_mini| replace:: `Pioneer Mini 1.6.9202 <https://disk.yandex.ru/d/HgeUOCpiQfwvOA>`__
 .. |fw_ap_base| replace:: `Pioneer Base 1.6.7178 <https://disk.yandex.ru/d/WqHQAxirCzi7iw>`__
 .. |fw_ap_max| replace:: `Pioneer Max 1.6.7287 <https://disk.yandex.ru/d/ffN2OSTgEO8cqg>`__
