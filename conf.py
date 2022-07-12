@@ -34,7 +34,7 @@ rst_epilog = """
 
 .. |utd_ap_mini| replace:: 1.6.9202
 .. |utd_param_mini| replace:: 1.0.9202
-.. |utd_fw_esp| replace:: 1.0.9202
+.. |utd_fw_esp| replace:: 0.5.6
 .. |utd_gs_jump| replace:: 1.14
 
 .. |utd_ap_base| replace:: 1.6.7178

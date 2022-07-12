@@ -2,39 +2,31 @@
 ============================
 
 На данной странице разобраны методы библиотеки pioneer_sdk.
-
 Примеры скриптов можно найти по `ссылке <https://github.com/geoscan/pioneer_sdk/tree/master/examples>`__.
-
 Страница по настройке среды Pycharm: :doc:`python-sdk-main`
-
-.. warning:: Страница находится на обновлении.
 
 
 .. contents::
    :local:
 
-.. highlight:: python
-
 ..  tip:: Значения аргументов, представленных в описании метода являются стандартными, то есть если написано: led_control(led_id=255, r=0, g=0, b=0)
           то в программе его можно вызывать как led_control() - эквивалент надписи выше. Или например led_control(r=255) — тогда частично будут задействованы стандартные значения.
 
+Pioneer
+-------
+
 Создание объекта класса:
+~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. class:: Pioneer
+.. py:class:: Pioneer(logger=True, mavlink_connection=MavlinkConnectionFactory.make_connected_udp_instantiate())
 
-.. py:class:: pioneer = Pioneer(pioneer_ip='192.168.4.1', pioneer_video_port=8888, pioneer_video_control_port=8888, pioneer_mavlink_port=8001, logger=True)
-
-	:аргументы:  *pioneer_ip* — адрес подключения к пионеру,
-                 *pioneer_video_port* — порт для передачи видеопотока,
-                 *pioneer_video_control_port* — порт для запуска передачи видеопотока,
-                 *pioneer_mavlink_port* - порт для передачи команд управления,
-                 *logger* — флаг, отвечающий за вывод отладочной информации в терминал принимает значения True/False
+	:аргументы: *logger* — флаг, отвечающий за вывод отладочной информации в терминал принимает значения True/False, *mavlink_connection* - принимает созданное MavLink-соединение.
 	:return: объект класса Pioneer
 
 	Cоздаёт объект класса Pioneer
 
-Описан
-
+Описание методов класса Pioneer:
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. py:classmethod:: get_raw_video_frame()
 
@@ -78,6 +70,11 @@
 
 	Управляет выполнением заранее загруженного на коптер lua скрипта.
 
+.. py:classmethod:: lua_script_upload(self, lua_source)
+
+	:аргументы: *lua_source* - путь до Lua-файла
+	:return: нет
+
 .. py:classmethod:: led_control(led_id=255, r=0, g=0, b=0)
 
     :аргументы:  *led_id* - номер светодиода для управления 0-3 — светодиоды от 1 до 4, 255 — все светодиоды,
@@ -91,7 +88,19 @@
 	            *yaw* - угол рысканья, задается в радианах.
 	:return: нет
 
-	Отправляет квадрокоптер с заданными координатами относительно системы 	координат, связанной с точкой взлета.
+.. py:classmethod:: set_manual_speed(self, vx, vy, vz, yaw_rate)
+
+	:аргументы: *vx*, *vy*, *vz* - координаты точки, в метрах.
+	            *yaw_rate* - угол рысканья, задается в радианах.
+	:return: нет
+
+.. py:classmethod:: set_manual_speed_body_fixed(self, vx, vy, vz, yaw_rate)
+
+	:аргументы: *vx*, *vy*, *vz* - координаты точки, в метрах.
+	            *yaw_rate* - угол рысканья, задается в радианах.
+	:return: нет
+
+	Отправляет квадрокоптер с заданными координатами относительно системы координат, связанной с точкой взлета.
 
 .. py:classmethod:: point_reached(blocking=False)
 
@@ -106,6 +115,44 @@
 	:return: None если данных нет, либо сигнал с дальномера в метрах
 
 	Позволяет получить показания с дальномера.
+
+
+-----
+
+
+
+MavlinkConnectionFactory
+------------------------
+Создание объекта класса:
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+Класс не имеет конструктора а только статичные методы.
+
+Описание методов MavlinkConnectionFactory.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+.. py:classmethod::	make_connected_udp_instantiate(ip="192.168.4.1", port=8001, logger=True)
+	
+	:аргументы: *ip* - ip-адрес устройства для подключения,
+				*port* - порт устройства для подключения,
+				*logger* — флаг, отвечающий за вывод отладочной информации в терминал принимает значения True/False.
+	:return: Созданное MavLink-соединение.
+
+.. py:classmethod::	make_connected_udp_listen(ip="192.168.4.1", port=8001, logger=True)
+	
+	:аргументы: *ip* - ip-адрес устройства для подключения,
+				*port* - порт устройства для подключения,
+				*logger* — флаг, отвечающий за вывод отладочной информации в терминал принимает значения True/False.
+	:return: Созданное MavLink-соединение.
+
+.. py:classmethod::	make_connected_serial(device, baud=115200, logger=True)
+	
+	:аргументы: *device* - адрес UART устройства,
+				*baud* - скорость подключения,
+				*logger* — флаг, отвечающий за вывод отладочной информации в терминал принимает значения True/False.
+	:return: Созданное MavLink-соединение.
+	Данный метод служит для создания UART-соединения.
 
 ..
     пример подключения кода из сабмодуля
