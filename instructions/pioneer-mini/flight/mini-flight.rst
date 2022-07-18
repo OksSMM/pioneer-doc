@@ -18,6 +18,7 @@
    mini-operation_flight
    mini-operation_lipo
    geoscan_jump
+   block_mode
    mini_control
    bt-rc-set
    mini-flight-mode
